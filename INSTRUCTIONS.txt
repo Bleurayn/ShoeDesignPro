@@ -1,0 +1,49 @@
+ShoeDesign Pro v3.3 - Quick Start Instructions
+==============================================
+
+1. Prerequisites
+- Python 3.12+
+- Git
+- (Optional) Docker
+
+2. Clone the Repository
+git clone https://github.com/YOURUSERNAME/ShoeDesignPro.git
+cd ShoeDesignPro
+
+3. (Recommended) Create a Virtual Environment
+python -m venv venv
+source venv/bin/activate    # On Windows: venv\Scripts\activate
+
+4. Install Dependencies
+pip install -r requirements.txt
+
+5. Run the Application Locally
+python app.py
+
+   → Open your browser and go to: http://127.0.0.1:5000
+
+6. Using Docker (Alternative)
+docker build -t shoedesignpro .
+docker run -p 5000:5000 shoedesignpro
+
+   → Open: http://localhost:5000
+
+7. Run Tests
+pytest -v
+
+8. Generated Files
+- Images (3D renders, supply chain) are saved in /static/
+- Design data is available via JSON download in the web UI
+
+9. Contributing
+- Fork the repo
+- Create a feature branch
+- Submit a Pull Request
+
+10. Zenodo DOI
+This project is archived on Zenodo. Latest release DOI will appear here after tagging.
+
+Enjoy designing the future of footwear! 🚀
+
+Project: ShoeDesign Pro - AI-Powered Ethical Footwear Platform
+License: MIT
