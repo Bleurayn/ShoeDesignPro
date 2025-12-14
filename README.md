@@ -1,6 +1,7 @@
 # ShoeDesign Pro v3.3
 
-[![DOI](https://zenodo.org/badge/DOI/YOUR_DOI_HERE.svg)](https://doi.org/YOUR_DOI) <!-- After first release -->
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
+Ultra-Enterprise AI-Powered Ethical Footwear Design Platform
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Ultra-Enterprise AI-Powered Platform for Ethical, Personalized Footwear Design
