@@ -14,3 +14,6 @@ AI-Powered Ethical Footwear Design Platform
 ```bash
 pip install -r requirements.txt
 python app.py
+
+mkdir static
+echo "# Generated files\nThis folder contains runtime-generated images (3D renders, supply chain viz, etc.)\nDo not edit files here manually." > static/README.md
