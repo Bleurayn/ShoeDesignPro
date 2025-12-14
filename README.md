@@ -50,3 +50,6 @@ ShoeDesignPro/
 
 
 Generated files (images, JSON) are created in `/static/` at runtime.
+
+git tag v1.0.0
+git push origin v1.0.0
