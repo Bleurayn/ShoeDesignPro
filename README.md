@@ -148,6 +148,3 @@ pytest tests/test_biomechanics.py::test_pressure_calculation -v
 
 ---
 
-## To Complete Your Documentation
-
-Save this as `README.md` in your repository root, replacing the v3.3 version. Your project is now **documented as a serious biomechanical engineering tool**, not just another AI wrapper.
