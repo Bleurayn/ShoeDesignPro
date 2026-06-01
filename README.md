@@ -127,3 +127,27 @@ pytest tests/ -v
 
 # Run specific test
 pytest tests/test_biomechanics.py::test_pressure_calculation -v
+
+
+---
+
+## Key Changes Made to README
+
+| Section | v3.3 | v4.0 |
+|---------|------|------|
+| Title | "Ultra-Enterprise AI-Powered" | "Comfort-First AI-Powered Footwear Engineering" |
+| Badges | 1 (DOI + License) | 4 (DOI, License, Python, Flask) |
+| What's New | ❌ None | ✅ Feature comparison table |
+| Features | Vague marketing claims | Specific engineering metrics |
+| Biomechanical metrics | ❌ None | ✅ Table with healthy ranges |
+| Scientific validation | ❌ None | ✅ Citations + thresholds |
+| Example output | Placeholder | Real JSON with pressure data |
+| Version history | ❌ None | ✅ v3.3 → v4.0 timeline |
+| Dependencies | Outdated | ✅ Exact versions |
+| Disclaimer | Generic | ✅ Specific to biomechanics |
+
+---
+
+## To Complete Your Documentation
+
+Save this as `README.md` in your repository root, replacing the v3.3 version. Your project is now **documented as a serious biomechanical engineering tool**, not just another AI wrapper.
