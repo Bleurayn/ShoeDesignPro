@@ -3,222 +3,460 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShoeDesign Pro v3.3 - AI Footwear Designer</title>
+    <title>ShoeDesign Pro v4.0 - Comfort-First AI Footwear Engineer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { 
-            background-color: #f8f9fa; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 40px 0; 
             min-height: 100vh;
         }
         .card { 
-            max-width: 1000px; 
+            max-width: 1200px; 
             margin: auto; 
+            border-radius: 1rem;
+            overflow: hidden;
         }
         .hero-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            padding: 60px 20px;
+            padding: 50px 20px;
             text-align: center;
-            border-radius: 0.5rem 0.5rem 0 0;
+        }
+        .comfort-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
         }
         .preview-img { 
-            max-height: 450px; 
+            max-height: 400px; 
             object-fit: contain; 
-            border: 1px solid #dee2e6;
             border-radius: 0.5rem;
+            width: 100%;
+            background: #f8f9fa;
+        }
+        .score-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #2ecc71;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+        }
+        .score-excellent { background: #2ecc71; }
+        .score-good { background: #f39c12; }
+        .score-moderate { background: #e67e22; }
+        .score-poor { background: #e74c3c; }
+        .metric-card {
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .warning-badge {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 5px;
         }
         footer {
             text-align: center;
-            margin-top: 60px;
-            color: #6c757d;
+            margin-top: 40px;
+            color: rgba(255,255,255,0.8);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-animation {
+            animation: fadeIn 0.5s ease-out;
+        }
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #e74c3c;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Hero Header -->
-        <div class="hero-header mb-5">
-            <h1 class="display-4 fw-bold">ShoeDesign Pro v3.3</h1>
-            <p class="lead">Ultra-Enterprise AI-Powered Ethical Footwear Design Platform</p>
-            <p class="mb-0">Generate personalized, sustainable, biomechanically optimized shoes in seconds</p>
+        <div class="hero-header rounded-top">
+            <div class="comfort-badge mb-3">⚡ COMFORT-FIRST ENGINEERING</div>
+            <h1 class="display-4 fw-bold">ShoeDesign Pro v4.0</h1>
+            <p class="lead">Biomechanically Optimized | Pressure-Mapped | All-Day Wearable</p>
+            <p class="mb-0 small">✨ AI-powered footwear that prioritizes YOUR foot health</p>
         </div>
 
-        <div class="card shadow">
+        <div class="card shadow-lg">
             <div class="card-body p-5">
                 <!-- Design Form -->
                 <form id="designForm">
                     <div class="row g-4 mb-4">
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">Occasion</label>
-                            <select class="form-select form-select-lg" name="occasion">
-                                <option value="casual">Casual</option>
-                                <option value="formal">Formal</option>
-                                <option value="party">Party</option>
-                                <option value="office">Office</option>
-                                <option value="wedding">Wedding</option>
-                                <option value="training">Training</option>
-                                <option value="competition">Competition</option>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">👟 US Shoe Size</label>
+                            <select class="form-select form-select-lg" name="shoe_size_us" required>
+                                <option value="5">5 (Women) / 3.5 (Men)</option>
+                                <option value="5.5">5.5 / 4</option>
+                                <option value="6">6 / 4.5</option>
+                                <option value="6.5">6.5 / 5</option>
+                                <option value="7">7 / 5.5</option>
+                                <option value="7.5">7.5 / 6</option>
+                                <option value="8" selected>8 / 6.5 (Most Common)</option>
+                                <option value="8.5">8.5 / 7</option>
+                                <option value="9">9 / 7.5</option>
+                                <option value="9.5">9.5 / 8</option>
+                                <option value="10">10 / 8.5</option>
+                                <option value="10.5">10.5 / 9</option>
+                                <option value="11">11 / 9.5</option>
+                                <option value="12">12 / 10.5</option>
+                                <option value="13">13 / 11.5</option>
                             </select>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label fw-bold">Heel Height Preference</label>
-                            <select class="form-select form-select-lg" name="heel">
-                                <option value="low">Low</option>
-                                <option value="medium" selected>Medium</option>
-                                <option value="high">High</option>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">🦶 Foot Type</label>
+                            <select class="form-select form-select-lg" name="foot_type" required>
+                                <option value="flat">Flat Feet (Low Arch) — Needs extra support</option>
+                                <option value="standard" selected>Standard Arch</option>
+                                <option value="high_arch">High Arch — Needs cushioning</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">📏 Heel Height Preference</label>
+                            <select class="form-select form-select-lg" name="heel_height_pref" required>
+                                <option value="low">Low (15-30mm / 0.6-1.2") — Most comfortable</option>
+                                <option value="medium" selected>Medium (31-50mm / 1.2-2.0") — Balanced</option>
+                                <option value="high">High (51-80mm / 2.0-3.1") — Statement</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="row g-4 mb-4">
                         <div class="col-md-6">
-                            <label class="form-label fw-bold">Preferred Color / Palette</label>
-                            <input type="text" class="form-control form-control-lg" name="color" placeholder="e.g., neutral, black, pastel, earth tones">
+                            <label class="form-label fw-bold">🏃 Activity Level</label>
+                            <select class="form-select form-select-lg" name="activity" required>
+                                <option value="casual" selected>Casual / Everyday</option>
+                                <option value="athletic">Athletic / Performance</option>
+                                <option value="professional">Professional / Work</option>
+                                <option value="party">Party / Evening</option>
+                            </select>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-bold">Designer Inspiration</label>
-                            <select class="form-select form-select-lg" name="designer">
-                                <option value="IAMBIC">IAMBIC</option>
-                                <option value="Meshy.ai">Meshy.ai</option>
-                                <option value="Wair.ai">Wair.ai</option>
-                                <option value="Other" selected>Other / None</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row g-4 mb-4">
-                        <div class="col-md-4">
-                            <label class="form-label fw-bold">Gender</label>
-                            <select class="form-select form-select-lg" name="gender">
-                                <option value="unisex" selected>Unisex</option>
-                                <option value="women">Women</option>
-                                <option value="men">Men</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label fw-bold">Foot Type</label>
-                            <select class="form-select form-select-lg" name="foot">
-                                <option value="standard">Standard Arch</option>
-                                <option value="high">High Arch</option>
-                                <option value="flat">Flat Feet</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label fw-bold">Activity Level</label>
-                            <select class="form-select form-select-lg" name="activity">
-                                <option value="casual" selected>Casual</option>
-                                <option value="athletic">Athletic</option>
-                                <option value="professional">Professional</option>
+                            <label class="form-label fw-bold">🎨 Style Preference</label>
+                            <select class="form-select form-select-lg" name="style_pref" required>
+                                <option value="balanced" selected>Balanced (Modern + Classic)</option>
+                                <option value="minimalist">Minimalist / Clean</option>
+                                <option value="bold">Bold / Statement</option>
+                                <option value="vintage">Vintage / Retro</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="mb-5">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="embellishments">
-                            <label class="form-check-label fw-bold">Add Embellishments</label>
+                        <label class="form-label fw-bold">⚖️ Comfort vs. Style Priority</label>
+                        <div class="row">
+                            <div class="col-8">
+                                <input type="range" class="form-range" name="comfort_priority" min="0" max="1" step="0.1" value="0.8" id="comfortSlider">
+                            </div>
+                            <div class="col-4">
+                                <span class="badge bg-primary fs-6 p-2" id="comfortLabel">80% Comfort / 20% Style</span>
+                            </div>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="sustainable" checked>
-                            <label class="form-check-label fw-bold">Prioritize Sustainable Materials</label>
-                        </div>
+                        <small class="text-muted">Higher comfort = softer materials, lower heels, better arch support</small>
+                    </div>
+
+                    <div class="alert alert-info mb-4">
+                        <strong>💡 Did you know?</strong> Our AI uses real biomechanical modeling, pressure mapping, and foot anthropometry to prevent plantar fasciitis, metatarsalgia, and back pain.
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary btn-lg px-5 py-3 fw-bold">Generate My Shoe Design</button>
+                        <button type="submit" class="btn btn-primary btn-lg px-5 py-3 fw-bold">
+                            ✨ Engineer My Comfort Shoe ✨
+                        </button>
                     </div>
                 </form>
 
                 <hr class="my-5">
 
                 <!-- Results Section -->
-                <div id="result" class="mt-5" style="display:none;">
-                    <h2 class="text-center mb-5 fw-bold text-primary">Your AI-Generated Shoe Design</h2>
-                    
-                    <div class="row text-center mb-5">
-                        <div class="col-md-6 mb-4">
-                            <div class="card h-100">
-                                <div class="card-header bg-light">
-                                    <h5>3D Parametric Render</h5>
-                                </div>
-                                <div class="card-body p-4">
-                                    <img id="renderImg" class="img-fluid preview-img shadow" alt="3D Render">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="card h-100">
-                                <div class="card-header bg-light">
-                                    <h5>Supply Chain Traceability</h5>
-                                </div>
-                                <div class="card-body p-4">
-                                    <img id="chainImg" class="img-fluid preview-img shadow" alt="Supply Chain Visualization">
-                                </div>
-                            </div>
-                        </div>
+                <div id="result" style="display:none;">
+                    <div id="loadingIndicator" class="text-center py-5">
+                        <div class="loading-spinner"></div>
+                        <p class="mt-3">Analyzing biomechanics, pressure mapping, and material properties...</p>
                     </div>
+                    
+                    <div id="resultContent" style="display:none;" class="result-animation">
+                        <h2 class="text-center mb-4 fw-bold text-primary">🎯 Your Custom Comfort-Engineered Design</h2>
+                        
+                        <!-- Comfort Score Header -->
+                        <div class="row mb-5">
+                            <div class="col-md-4 offset-md-4 text-center">
+                                <div id="scoreCircle" class="score-circle"></div>
+                                <h4 id="scoreRating" class="mb-0"></h4>
+                                <p id="scoreDesc" class="text-muted small"></p>
+                            </div>
+                        </div>
+                        
+                        <!-- 3D Render -->
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <div class="card bg-light">
+                                    <div class="card-body text-center">
+                                        <h5>👟 3D Biomechanical Last Render</h5>
+                                        <img id="renderImg" class="preview-img" alt="3D Shoe Render">
+                                        <small class="text-muted d-block mt-2">Actual shoe last geometry optimized for your foot morphology</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                    <div id="designDetails" class="mt-5"></div>
+                        <div class="row g-4">
+                            <!-- Specifications -->
+                            <div class="col-md-6">
+                                <div class="card h-100 metric-card">
+                                    <div class="card-header bg-white fw-bold">📋 Shoe Specifications</div>
+                                    <div class="card-body">
+                                        <div id="specs"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Biomechanics -->
+                            <div class="col-md-6">
+                                <div class="card h-100 metric-card">
+                                    <div class="card-header bg-white fw-bold">⚙️ Biomechanical Engineering</div>
+                                    <div class="card-body">
+                                        <div id="biomech"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Comfort Subscores -->
+                            <div class="col-md-6">
+                                <div class="card h-100 metric-card">
+                                    <div class="card-header bg-white fw-bold">📊 Comfort Metrics</div>
+                                    <div class="card-body">
+                                        <div id="subscores"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Fit Analysis -->
+                            <div class="col-md-6">
+                                <div class="card h-100 metric-card">
+                                    <div class="card-header bg-white fw-bold">📏 Fit & Morphology</div>
+                                    <div class="card-body">
+                                        <div id="fit"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Warnings & Recommendations -->
+                        <div id="warnings" class="mt-4"></div>
 
-                    <div class="text-center mt-5">
-                        <button id="downloadJson" class="btn btn-outline-primary btn-lg">Download Design JSON</button>
-                        <button id="newDesign" class="btn btn-secondary btn-lg ms-3">Create New Design</button>
+                        <div class="text-center mt-5">
+                            <button id="downloadJson" class="btn btn-outline-primary btn-lg">📥 Download Design JSON</button>
+                            <button id="newDesign" class="btn btn-secondary btn-lg ms-3">🔄 Create New Design</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <footer>
-            <p>&copy; 2025 ShoeDesign Pro — Open Source under MIT License | Powered by AI for Ethical Footwear</p>
+            <p>© 2025 ShoeDesign Pro v4.0 — Open Source MIT License | Biomechanically Verified | Pressure-Tested</p>
+            <p class="small">⚠️ Disclaimer: This is an AI-assisted design tool. Final comfort depends on individual anatomy and manufacturing quality.</p>
         </footer>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Comfort slider label update
+        document.getElementById('comfortSlider').addEventListener('input', function(e) {
+            const val = parseFloat(e.target.value);
+            const comfortPercent = Math.round(val * 100);
+            const stylePercent = 100 - comfortPercent;
+            document.getElementById('comfortLabel').innerText = `${comfortPercent}% Comfort / ${stylePercent}% Style`;
+        });
+
+        // Form submission
         document.getElementById('designForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            
             const formData = new FormData(e.target);
-            const response = await fetch('/', {
-                method: 'POST',
-                body: formData
-            });
-            const design = await response.json();
-
-            document.getElementById('result').style.display = 'block';
+            const payload = {
+                shoe_size_us: parseInt(formData.get('shoe_size_us')),
+                foot_type: formData.get('foot_type'),
+                heel_height_pref: formData.get('heel_height_pref'),
+                activity: formData.get('activity'),
+                style_pref: formData.get('style_pref'),
+                comfort_priority: parseFloat(formData.get('comfort_priority'))
+            };
+            
+            const resultDiv = document.getElementById('result');
+            const loadingDiv = document.getElementById('loadingIndicator');
+            const contentDiv = document.getElementById('resultContent');
+            
+            resultDiv.style.display = 'block';
+            loadingDiv.style.display = 'block';
+            contentDiv.style.display = 'none';
             document.querySelector('.hero-header').scrollIntoView({ behavior: 'smooth' });
-
-            document.getElementById('renderImg').src = design.render_3d + '?t=' + new Date().getTime();
-            document.getElementById('chainImg').src = design.supply_chain + '?t=' + new Date().getTime();
-
-            let details = '<div class="row">';
-            for (const [key, value] of Object.entries(design)) {
-                if (key !== 'render_3d' && key !== 'supply_chain' && key !== 'exports') {
-                    details += `
-                        <div class="col-md-4 mb-3">
-                            <div class="card h-100">
-                                <div class="card-body text-center">
-                                    <h6 class="card-title text-uppercase text-muted">${key.replace(/_/g, ' ')}</h6>
-                                    <p class="card-text fw-bold fs-5">${value}</p>
-                                </div>
-                            </div>
-                        </div>`;
+            
+            try {
+                const response = await fetch('/api/design', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json();
+                
+                if (!data.success) {
+                    throw new Error(data.error);
                 }
+                
+                const d = data.design;
+                const comfort = d.comfort_assessment;
+                
+                // Update score circle
+                const scoreCircle = document.getElementById('scoreCircle');
+                const score = comfort.total_comfort_score;
+                scoreCircle.innerText = Math.round(score);
+                if (score >= 85) {
+                    scoreCircle.className = 'score-circle score-excellent';
+                    document.getElementById('scoreRating').innerText = '🏆 Excellent';
+                    document.getElementById('scoreDesc').innerText = 'All-day wearable — biomechanically sound';
+                } else if (score >= 70) {
+                    scoreCircle.className = 'score-circle score-good';
+                    document.getElementById('scoreRating').innerText = '👍 Good';
+                    document.getElementById('scoreDesc').innerText = 'Comfortable for 4-6 hours';
+                } else if (score >= 55) {
+                    scoreCircle.className = 'score-circle score-moderate';
+                    document.getElementById('scoreRating').innerText = '⚠️ Moderate';
+                    document.getElementById('scoreDesc').innerText = 'Best for short wear periods';
+                } else {
+                    scoreCircle.className = 'score-circle score-poor';
+                    document.getElementById('scoreRating').innerText = '⚠️ Poor';
+                    document.getElementById('scoreDesc').innerText = 'Risk of discomfort — see recommendations';
+                }
+                
+                // Specifications
+                document.getElementById('specs').innerHTML = `
+                    <p><strong>Style:</strong> ${d.style}</p>
+                    <p><strong>Heel Height:</strong> ${d.heel_height_mm}mm / ${d.heel_height_inches}"</p>
+                    <p><strong>Trend:</strong> ${d.trend} (${Math.round(d.trend_compatibility*100)}% comfort-compatible)</p>
+                    <p><strong>Primary Material:</strong> ${d.primary_material}</p>
+                    <p><strong>Color Palette:</strong> ${d.color_suggestion}</p>
+                `;
+                
+                // Biomechanics
+                document.getElementById('biomech').innerHTML = `
+                    <p><strong>Peak Heel Pressure:</strong> ${d.biomechanics.peak_heel_pressure_kPa} kPa</p>
+                    <p><strong>Peak Metatarsal:</strong> ${d.biomechanics.peak_metatarsal_pressure_kPa} kPa</p>
+                    <p><strong>Arch Support:</strong> ${Math.round(d.biomechanics.arch_support_effectiveness*100)}% effective</p>
+                    <p><strong>Rocker Angle:</strong> ${d.biomechanics.midsole_optimization.rocker_angle_deg}°</p>
+                    <p><strong>Toe Spring:</strong> ${d.biomechanics.midsole_optimization.toe_spring_mm}mm</p>
+                    <p><strong>Heel Bevel:</strong> ${d.biomechanics.midsole_optimization.heel_bevel_mm}mm</p>
+                `;
+                
+                // Subscores
+                document.getElementById('subscores').innerHTML = `
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>Pressure Management</span>
+                            <strong>${comfort.subscores.pressure_management}/100</strong>
+                        </div>
+                        <div class="progress"><div class="progress-bar bg-success" style="width: ${comfort.subscores.pressure_management}%"></div></div>
+                    </div>
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>Geometric Fit</span>
+                            <strong>${comfort.subscores.geometric_fit}/100</strong>
+                        </div>
+                        <div class="progress"><div class="progress-bar bg-info" style="width: ${comfort.subscores.geometric_fit}%"></div></div>
+                    </div>
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>Material Comfort</span>
+                            <strong>${comfort.subscores.material_comfort}/100</strong>
+                        </div>
+                        <div class="progress"><div class="progress-bar bg-warning" style="width: ${comfort.subscores.material_comfort}%"></div></div>
+                    </div>
+                    <div class="mb-2">
+                        <div class="d-flex justify-content-between">
+                            <span>Size Accuracy</span>
+                            <strong>${comfort.subscores.size_accuracy}/100</strong>
+                        </div>
+                        <div class="progress"><div class="progress-bar bg-danger" style="width: ${comfort.subscores.size_accuracy}%"></div></div>
+                    </div>
+                `;
+                
+                // Fit
+                document.getElementById('fit').innerHTML = `
+                    <p><strong>Foot Length:</strong> ${Math.round(d.foot_morphology.length_mm)}mm</p>
+                    <p><strong>Toebox Width:</strong> ${Math.round(d.geometry.toebox_width_mm)}mm (target: ${Math.round(d.foot_morphology.width_mm)}mm)</p>
+                    <p><strong>Arch Height:</strong> ${d.foot_morphology.arch_height_mm}mm</p>
+                    <p><strong>Last Length:</strong> ${Math.round(d.geometry.last_length_mm)}mm</p>
+                    <p><strong>Toe Allowance:</strong> ${Math.round(d.geometry.last_length_mm - d.foot_morphology.length_mm)}mm ${Math.round(d.geometry.last_length_mm - d.foot_morphology.length_mm) >= 12 ? '✅ Optimal' : '⚠️ Tight'}</p>
+                    <p><strong>Heel Width Ratio:</strong> ${(d.geometry.heel_width_mm / d.foot_morphology.heel_width_mm * 100).toFixed(0)}%</p>
+                `;
+                
+                // Warnings & recommendations
+                let warningsHtml = '';
+                if (d.warnings) {
+                    warningsHtml += `<div class="warning-badge">⚠️ Trend Warning: ${d.warnings}</div>`;
+                }
+                if (comfort.recommendations && comfort.recommendations.length > 0) {
+                    warningsHtml += `<div class="warning-badge mt-2">💡 Recommendations: ${comfort.recommendations.join(' • ')}</div>`;
+                }
+                if (d.biomechanics.peak_heel_pressure_kPa > 250) {
+                    warningsHtml += `<div class="warning-badge mt-2">⚠️ High heel pressure detected — consider lower heel height or softer insole</div>`;
+                }
+                document.getElementById('warnings').innerHTML = warningsHtml;
+                
+                // 3D render
+                document.getElementById('renderImg').src = d.render_3d_url + '?t=' + new Date().getTime();
+                
+                // Download JSON handler
+                document.getElementById('downloadJson').onclick = () => {
+                    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+                    const a = document.createElement('a');
+                    a.href = dataStr;
+                    a.download = `shoe_design_${d.style.toLowerCase().replace(/ /g, '_')}.json`;
+                    a.click();
+                };
+                
+                document.getElementById('newDesign').onclick = () => {
+                    location.reload();
+                };
+                
+                loadingDiv.style.display = 'none';
+                contentDiv.style.display = 'block';
+                
+            } catch (error) {
+                loadingDiv.innerHTML = `<div class="alert alert-danger">❌ Error: ${error.message}. Make sure the backend server is running on port 5000.</div>`;
             }
-            details += '</div>';
-            document.getElementById('designDetails').innerHTML = details;
-
-            document.getElementById('downloadJson').onclick = () => {
-                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(design, null, 2));
-                const a = document.createElement('a');
-                a.href = dataStr;
-                a.download = 'apexnova_shoe_design.json';
-                a.click();
-            };
-
-            document.getElementById('newDesign').onclick = () => {
-                location.reload();
-            };
         });
     </script>
 </body>
